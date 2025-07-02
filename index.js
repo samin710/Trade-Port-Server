@@ -62,15 +62,10 @@ async function run() {
     const ordersCollection = client.db("productsDB").collection("orders");
 
     // Products related apis
-    app.get(
-      "/products",
-      verifyFireBaseToken,
-      verifyTokenEmail,
-      async (req, res) => {
-        const result = await productsCollection.find().toArray();
-        res.send(result);
-      }
-    );
+    app.get("/products", async (req, res) => {
+      const result = await productsCollection.find().toArray();
+      res.send(result);
+    });
 
     app.get("/products/category/:category", async (req, res) => {
       const category = req.params.category;
@@ -82,7 +77,6 @@ async function run() {
       res.send(result);
     });
 
-<<<<<<< HEAD
     app.get(
       "/products/:id",
       verifyFireBaseToken,
@@ -189,20 +183,15 @@ async function run() {
 
     app.post("/orders", async (req, res) => {
       const result = await ordersCollection.insertOne(req.body);
-=======
+    });
+
     app.get("/categories", async (req, res) => {
-      const category = req.query.category; 
+      const category = req.query.category;
 
       const query = {
         category: category,
       };
       const result = await productsCollection.find(query).toArray();
-      res.send(result);
-    });
-
-    app.post("/products", async (req, res) => {
-      const result = await productsCollection.insertOne(req.body);
->>>>>>> 72ded35 (category wise api done)
       res.send(result);
     });
 
